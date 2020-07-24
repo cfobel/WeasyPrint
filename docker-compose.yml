@@ -1,0 +1,28 @@
+version: '3.7'
+
+services:
+  renderer:
+    command:
+      [
+        'python',
+        '-m',
+        'weasyprint.tools.renderer',
+        '--host=0.0.0.0',
+        '--port=5000',
+      ]
+    build: .
+    ports:
+      - '7000:5000'
+
+  navigator:
+    command:
+      [
+        'python',
+        '-m',
+        'weasyprint.tools.navigator',
+        '--host=0.0.0.0',
+        '--port=5000',
+      ]
+    build: .
+    ports:
+      - '7001:5000'
