@@ -21,3 +21,6 @@
 /.pytest_cache
 /weasyprint/tests/.cache
 /weasyprint/tests/test_draw/results
+
+# Visual Studio Code Local History plugin files
+.history
