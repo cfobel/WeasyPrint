@@ -98,8 +98,7 @@ def app(environ, start_response):
     return make_response(b'<h1>Not Found</h1>', status='404 Not Found')
 
 
-def run(port=5000):  # pragma: no cover
-    host = '127.0.0.1'
+def run(host='127.0.0.1', port=5000):  # pragma: no cover
     server = make_server(host, port, app)
     print('Listening on http://%s:%s/ ...' % (host, port))
     server.serve_forever()
@@ -108,6 +107,10 @@ def run(port=5000):  # pragma: no cover
 if __name__ == '__main__':  # pragma: no cover
     parser = argparse.ArgumentParser()
     parser.add_argument(
+        '--host', default='127.0.0.1',
+        help='renderer web server host')
+    parser.add_argument(
         '--port', '-p', type=int, default=5000,
         help='renderer web server port')
-    run(parser.parse_args().port)
+    args = parser.parse_args()
+    run(args.host, args.port)

@@ -6,6 +6,7 @@
 
 """
 
+import argparse
 from base64 import encodebytes
 from urllib.parse import parse_qs
 from wsgiref.simple_server import make_server
@@ -136,12 +137,19 @@ def app(environ, start_response):
     return make_response(b'<h1>Not Found</h1>', status='404 Not Found')
 
 
-def run(port=5000):  # pragma: no cover
-    host = '127.0.0.1'
+def run(host='127.0.0.1', port=5000):  # pragma: no cover
     server = make_server(host, port, app)
     print('Listening on http://%s:%s/ ...' % (host, port))
     server.serve_forever()
 
 
 if __name__ == '__main__':  # pragma: no cover
-    run()
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        '--host', default='127.0.0.1',
+        help='navigator web server host')
+    parser.add_argument(
+        '--port', '-p', type=int, default=5000,
+        help='navigator web server port')
+    args = parser.parse_args()
+    run(args.host, args.port)
